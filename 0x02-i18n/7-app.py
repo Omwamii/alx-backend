@@ -46,10 +46,26 @@ def get_locale():
         return lang
     if g.user and g.user['locale'] in app.config["LANGUAGES"]:
         return g.user['locale']
-    header_lang = request.headers.get('locale', '')
+    header_lang = request.headers.get('locale', '') 
     if header_lang in app.config["LANGUAGES"]:
         return header_lang
     return app.config["BABEL_DEFAULT_LOCALE"]
+
+
+@babel.timezoneselector
+def get_timezone():
+    """ Get local timezone """
+    tz = str(request.args.get('timezone'))
+    if tz:
+        return tz
+    if g.user and g.user['timezone']:
+        try:
+            timezone = g.user['timezone']
+            pytz.timezone(timezone).zone
+        except pytz.exceptions.UnknownTimezoneError:
+            return app.config["BABEL_DEFAULT_TIMEZONE"]
+        else:
+            return timezone
 
 
 @app.route('/')
