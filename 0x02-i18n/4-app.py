@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-""" Module with Babel object instance 
-"""
+""" Module with Babel object instance """
 from flask import Flask, render_template, request
 from flask_babel import Babel, gettext as _
 
