@@ -26,17 +26,10 @@ users = {
 
 def get_user():
     """ Returns a user dictionary or None if id cannot be found """
-    try:
-        login_as = int(request.args.get('login_as'))
-    except TypeError:
-        return None
-    else:
-        try:
-            user_info = users.get(login_as)
-        except KeyError:
-            return None
-        else:
-            return user_info
+    login_id = request.args.get('login_as')
+    if login_id:
+        return users.get(int(login_id))
+    return None
 
 
 @app.before_request
