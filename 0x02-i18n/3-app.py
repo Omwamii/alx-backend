@@ -20,15 +20,13 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale():
     """ Get locale function """
-    return request.accept_languages.best_match(['en', 'fr'])
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def index():
     """ return index page """
-    title = _('home_title')
-    h1 = _('home_header')
-    return render_template('3-index.html', home_title=title, home_header=h1)
+    return render_template('3-index.html')
 
 
 if __name__ == "__main__":
