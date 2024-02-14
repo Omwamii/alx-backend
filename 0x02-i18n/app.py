@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module with Babel object instance """
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel, format_datetime, gettext as _
 
 
 class Config:
@@ -71,7 +71,8 @@ def get_timezone():
 @app.route('/')
 def index():
     """ return index page """
-    return render_template('6-index.html')
+    g.time = format_datetime()
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
