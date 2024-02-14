@@ -18,7 +18,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ fn to return locale """
     lang = str(request.args.get('locale'))
     if not lang or lang not in app.config['LANGUAGES']:
@@ -27,9 +27,9 @@ def get_locale():
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """ return index page """
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == "__main__":
