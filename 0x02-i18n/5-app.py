@@ -2,6 +2,7 @@
 """ Module with Babel object instance """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, gettext as _
+from typing import Union, Dict
 
 
 class Config:
@@ -24,7 +25,7 @@ users = {
 }
 
 
-def get_user():
+def get_user() -> Union[Dict, None]:
     """ Returns a user dictionary or None if id cannot be found """
     login_id = request.args.get('login_as')
     if login_id:
@@ -33,13 +34,13 @@ def get_user():
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """ Use get_user to find a user & set it as global flask.g.user """
     g.user = get_user()
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ fn to return locale """
     lang = str(request.args.get('locale'))
     if not lang or lang not in app.config['LANGUAGES']:
@@ -48,7 +49,7 @@ def get_locale():
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """ return index page """
     return render_template('5-index.html')
 
